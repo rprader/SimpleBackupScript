@@ -46,7 +46,7 @@ class Backup(object):
 		"""
 		Define db-dump command. If no password required, -p argument is not used.
 		"""
-		dumpcmd = 'mysqldump -h %(host)s -u %(user)s -p %(password)s %(db)s > %(db_backup_file_path)s'
+		dumpcmd = 'mysqldump -h %(host)s -u %(user)s -p%(password)s %(db)s > %(db_backup_file_path)s'
 		if self.db_credentials['password'] == '':
 			dumpcmd = 'mysqldump -h %(host)s -u %(user)s %(db)s > %(db_backup_file_path)s'
 
@@ -71,7 +71,7 @@ class Backup(object):
 		sync_command = 'rclone copy %(source_dir)s %(remote_name)s:%(remote_path)s' % {
 			'source_dir': todays_folder,
 			'remote_name': self.gdrive_credentials['remote_name'],
-			'remote_path': self.gdrive_credentials['remote_path']
+			'remote_path': 'self.gdrive_credentials['remote_path']/%s' % self.get_today_folder_name()
 		}
 		os.system(sync_command)
 		print 'Folder synced to Google Drive'

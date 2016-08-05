@@ -10,7 +10,7 @@ Download and setup rclone as described on their page and setup config for drive:
 
 Then:
 ```sh
-$ git clone ---
+$ git clone https://github.com/rprader/SimpleBackupScript.git
 ```
 Add backupscript.json to the same directory as backupscript.py
 

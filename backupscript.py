@@ -71,7 +71,7 @@ class Backup(object):
 		sync_command = 'rclone copy %(source_dir)s %(remote_name)s:%(remote_path)s' % {
 			'source_dir': todays_folder,
 			'remote_name': self.gdrive_credentials['remote_name'],
-			'remote_path': 'self.gdrive_credentials['remote_path']/%s' % self.get_today_folder_name()
+			'remote_path': '%s/%s' % (self.gdrive_credentials['remote_path'], self.get_today_folder_name())
 		}
 		os.system(sync_command)
 		print 'Folder synced to Google Drive'

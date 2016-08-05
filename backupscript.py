@@ -1,32 +1,24 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-import datetime, os, shutil
-
-PATH_CONFIG = {
-	'local_backup_path': '/Users/raphaelprader/Desktop/fake_bu_path'
-}
-
-DB_CREDENTIALS = {
-	'username': 'root',
-	'password': '',
-	'host': 'localhost',
-	'db_names': [
-		'db_www_sprachtandem_ch',
-	]
-}
-
-GDRIVE_CREDENTIALS = {
-	'remote_name': 'GoogleDrive',
-	'remote_path': 'NetcupBackup'
-}
+import datetime, os, shutil, json
 
 
 class Backup(object):
 
-	def __init__(self, db_credentials, path_config, gdrive_credentials):
-		self.db_credentials = db_credentials
-		self.path_config = path_config
-		self.gdrive_credentials = gdrive_credentials
+	def __init__(self):
+		current_dir = os.path.dirname(os.path.realpath(__file__))
+		config_file = os.path.join(current_dir, 'backupscript.json')
+		if not os.path.isfile(config_file):
+			print 'Config-File not found. `backupscript.conf` has to be placed in the same directory as `backupscript.py`'
+			raise
+
+		with open(config_file, 'r') as config_file_content:
+			config_data = json.loads(config_file_content.read())
+			config_file_content.close()
+
+		self.db_credentials = config_data['DB_CREDENTIALS']
+		self.path_config = config_data['PATH_CONFIG']
+		self.gdrive_credentials = config_data['GDRIVE_CREDENTIALS']
 		self.log_file = os.path.join(self.path_config['local_backup_path'], '_completed_backups.log')
 		self.do_backup()
 
@@ -96,4 +88,4 @@ class Backup(object):
 		print '\n---------- END BACKUP: %s ----------' % self.get_readable_datetime()
 
 
-backupInstance = Backup(db_credentials=DB_CREDENTIALS, path_config=PATH_CONFIG, gdrive_credentials=GDRIVE_CREDENTIALS)
+backupInstance = Backup()

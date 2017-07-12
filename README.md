@@ -29,11 +29,12 @@ Add backupscript.json to the same directory as backupscript.py
    },
    "GDRIVE_CREDENTIALS":{
       "remote_name":"ENTER_REMOTE_NAME",
-      "remote_path":"ENTER_PATH"
+      "remote_path":"ENTER_PATH",
+      "gdrive_config_path": "",
    }
 }
 ```
-
+When running the script with a different user than the one gdrive is installed with, `gdrive_config_path` has to be specified.
 
 ### Todos
 
